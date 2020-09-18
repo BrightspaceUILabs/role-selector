@@ -1,8 +1,8 @@
-# d2l-labs-role-filter
+# d2l-labs-role-selector    
 
-[![NPM version](https://img.shields.io/npm/v/@brightspace-ui-labs/role-filter.svg)](https://www.npmjs.org/package/@brightspace-ui-labs/role-filter)
-[![Dependabot badge](https://flat.badgen.net/dependabot/BrightspaceUILabs/role-filter?icon=dependabot)](https://app.dependabot.com/)
-[![Build status](https://travis-ci.com/@brightspace-ui-labs/role-filter.svg?branch=master)](https://travis-ci.com/@brightspace-ui-labs/role-filter)
+[![NPM version](https://img.shields.io/npm/v/@brightspace-ui-labs/role-selector.svg)](https://www.npmjs.org/package/@brightspace-ui-labs/role-selector)
+[![Dependabot badge](https://flat.badgen.net/dependabot/BrightspaceUILabs/role-selector?icon=dependabot)](https://app.dependabot.com/)
+[![Build status](https://travis-ci.com/@brightspace-ui-labs/role-selector.svg?branch=master)](https://travis-ci.com/@brightspace-ui-labs/role-selector)
 
 > Note: this is a ["labs" component](https://github.com/BrightspaceUI/guide/wiki/Component-Tiers). While functional, these tasks are prerequisites to promotion to BrightspaceUI "official" status:
 >
@@ -25,16 +25,16 @@ Select Role(s)
 To install from NPM:
 
 ```shell
-npm install @brightspace-ui-labs/role-filter
+npm install @brightspace-ui-labs/role-selector
 ```
 
 ## Usage
 
 ```html
 <script type="module">
-    import '@brightspace-ui-labs/role-filter/role-filter.js';
+    import '@brightspace-ui-labs/role-selector/role-selector.js';
 </script>
-<d2l-labs-role-filter>My element</d2l-labs-role-filter>
+<d2l-labs-role-selector>My element</d2l-labs-role-selector>
 ```
 
 **Properties:**
@@ -45,7 +45,7 @@ npm install @brightspace-ui-labs/role-filter
 
 **Accessibility:**
 
-To make your usage of `d2l-labs-role-filter` accessible, use the following properties when applicable:
+To make your usage of `d2l-labs-role-selector` accessible, use the following properties when applicable:
 
 | Attribute | Description |
 |--|--|
