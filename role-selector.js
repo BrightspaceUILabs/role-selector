@@ -65,7 +65,6 @@ class RoleSelector extends LitElement {
 	}
 
 	_handleSelectAllRoles(e) {
-		console.log(e.target.checked);
 		let nodes = this.fetchChildElements();
 		nodes.forEach(obj => obj.checked = e.target.checked);
 		this.shadowRoot.querySelector('#confirm').disabled = !e.target.checked;
