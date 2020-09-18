@@ -6,7 +6,7 @@ class RoleSelector extends LitElement {
 
 	static get properties() {
 		return {
-			selectedRoles: { type: Array}
+			selectedRoles: { type: Array }
 		};
 	}
 
@@ -82,9 +82,9 @@ class RoleSelector extends LitElement {
 		this.shadowRoot.querySelector('#selected').innerHTML = '';
 		let count = this.selectedRoles.length;
 		if (count === nodes.length) {
-			this.shadowRoot.querySelector('#selected').append("All Roles");       
+			this.shadowRoot.querySelector('#selected').append("All Roles");
 		} else {
-			for (var index = 0; index < count; index++){
+			for (var index = 0; index < count; index++) {
 				if (index > 0) {
 					this.shadowRoot.querySelector('#selected').append(', ', this.selectedRoles[index].DisplayName);
 				} else {

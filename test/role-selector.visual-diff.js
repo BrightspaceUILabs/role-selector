@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 const VisualDiff = require('@brightspace-ui/visual-diff');
 
-describe('d2l-labs-role-filter', () => {
+describe('d2l-labs-role-selector', () => {
 
-	const visualDiff = new VisualDiff('role-filter', __dirname);
+	const visualDiff = new VisualDiff('role-selector', __dirname);
 
 	let browser, page;
 
@@ -11,7 +11,7 @@ describe('d2l-labs-role-filter', () => {
 		browser = await puppeteer.launch();
 		page = await visualDiff.createPage(browser);
 		await page.setViewport({width: 800, height: 800, deviceScaleFactor: 2});
-		await page.goto(`${visualDiff.getBaseUrl()}/test/role-filter.visual-diff.html`, {waitUntil: ['networkidle0', 'load']});
+		await page.goto(`${visualDiff.getBaseUrl()}/test/role-selector.visual-diff.html`, {waitUntil: ['networkidle0', 'load']});
 		await page.bringToFront();
 	});
 

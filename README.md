@@ -1,4 +1,4 @@
-# d2l-labs-role-selector    
+# d2l-labs-role-selector
 
 [![NPM version](https://img.shields.io/npm/v/@brightspace-ui-labs/role-selector.svg)](https://www.npmjs.org/package/@brightspace-ui-labs/role-selector)
 [![Dependabot badge](https://flat.badgen.net/dependabot/BrightspaceUILabs/role-selector?icon=dependabot)](https://app.dependabot.com/)
@@ -18,7 +18,7 @@
 > - [ ] Demo page
 > - [ ] README documentation
 
-Select Role(s)
+Select roles from a dialog with role items
 
 ## Installation
 

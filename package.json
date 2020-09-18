@@ -1,18 +1,17 @@
 {
   "name": "@brightspace-ui-labs/role-selector",
-  "description": "Select Role(s)",
+  "description": "Select roles from a dialog with role items",
   "repository": "https://github.com/BrightspaceUILabs/role-selector.git",
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "role-selector.js",
-    "role-item.js"
+    "role-selector.js"
   ],
   "scripts": {
     "lint": "npm run lint:eslint && npm run lint:lit",
     "lint:eslint": "eslint . --ext .js,.html",
-    "lint:lit": "lit-analyzer role-selector.js role-item.js demo test",
+    "lint:lit": "lit-analyzer role-selector.js demo test",
     "start": "es-dev-server --app-index demo/index.html --node-resolve --dedupe --open --watch",
     "test": "npm run lint && npm run test:headless && npm run test:diff",
     "test:diff": "mocha ./**/*.visual-diff.js -t 40000",
@@ -42,10 +41,8 @@
     "puppeteer": "^4"
   },
   "dependencies": {
-    "@brightspace-ui-labs/multi-select": "^3.6.1",
-    "@brightspace-ui/core": "^1.79.0",
-    "@webcomponents/webcomponentsjs": "^2.4.4",
-    "d2l-facet-filter-sort": "BrightspaceUI/facet-filter-sort#semver:^3",
+    "@brightspace-ui/core": "^1",
+    "@webcomponents/webcomponentsjs": "^2",
     "lit-element": "^2"
   }
 }

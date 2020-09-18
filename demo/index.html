@@ -1,25 +1,26 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-	<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
-	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-	<script type="module">
-		import '@brightspace-ui/core/components/demo/demo-page.js';
-		import '../role-selector.js';
-		import '../role-item.js';
-	</script>
-	<title>d2l-labs-role-selector</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta charset="UTF-8">
-</head>
-<body>
-	<d2l-demo-page>
-		<d2l-labs-role-selector>
-			<d2l-labs-role-item itemId="1" displayName="Administrator"></d2l-labs-role-item>
-			<d2l-labs-role-item itemId="2" displayName="Student"></d2l-labs-role-item>
-			<d2l-labs-role-item itemId="3" displayName="Instructor"></d2l-labs-role-item>
-		</d2l-labs-role-selector>
-	</d2l-demo-page>
-</body>
+	<head>
+		<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script type="module">
+			import '@brightspace-ui/core/components/demo/demo-page.js';
+			import '../role-selector.js';
+			import '../role-item.js';
+		</script>
+		<title>d2l-labs-role-selector</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<d2l-demo-page page-title="d2l-labs-role-selector">
+			<h2>d2l-labs-role-selector</h2>
+			<d2l-labs-role-selector>
+				<d2l-labs-role-item itemId="1" displayName="Administrator"></d2l-labs-role-item>
+				<d2l-labs-role-item itemId="2" displayName="Student"></d2l-labs-role-item>
+				<d2l-labs-role-item itemId="3" displayName="Instructor"></d2l-labs-role-item>
+			</d2l-labs-role-selector>
+		</d2l-demo-page>
+	</body>
 </html>
