@@ -92,6 +92,14 @@ class RoleSelector extends LitElement {
 				}
 			}
 		}
+		
+		this.dispatchEvent(new CustomEvent('d2l-labs-role-selected', {
+			detail: {
+				message: this.selectedRoles,
+			},
+			bubbles: true,
+			composed: true })
+		);
 	}
 }
 
