@@ -5,9 +5,9 @@ class RoleItem extends LitElement {
 
 	static get properties() {
 		return {
-			itemId: { type: Number },
-			displayName: { type: String },
-			checked: { type: Boolean }
+			itemId: { type: Number, attribute: 'item-id' },
+			displayName: { type: String, attribute: 'display-name' },
+			selected: { type: Boolean, reflect: true }
 		};
 	}
 
@@ -24,64 +24,25 @@ class RoleItem extends LitElement {
 
 	constructor() {
 		super();
-		this.checked = true;
+		this.selected = true;
 	}
 
 	render() {
 		return html`
 			<d2l-input-checkbox
-				id='item'
-				.checked="${this.checked}"
-				.value=${this.itemid}
-				name = ${this.displayName}	
-				@click=${this._handleSelectionClick}>
+				.checked="${this.selected}"
+				.value=${this.itemId}	
+				@change=${this._onCheckboxChange}>
 			${this.displayName}
 			</d2l-input-checkbox>
 		`;
 	}
 
-	selectedCount() {
-		let count = 1;
-		const nodes = this._fetchNodes();
-		nodes.forEach(obj => {
-			if (obj.shadowRoot.querySelector('#item').checked) {
-				count += 1;
-			}
-		});
-		return count;
-	}
-
-	unSelectedCount() {
-		let count = 1;
-		const nodes = this._fetchNodes();
-		nodes.forEach(obj => {
-			if (!obj.shadowRoot.querySelector('#item').checked) {
-				count += 1;
-			}
-		});
-		return count;
-	}
-
-	_fetchNodes() {
-		const slots = this.parentNode.shadowRoot.querySelector('slot');
-		return slots.assignedElements();
-	}
-
-	_handleSelectionClick(e) {
-		const nodes = this._fetchNodes();
-		const roleCount = nodes.length;
-
-		if (!e.target.checked) {
-			if (this.selectedCount() === roleCount) {
-				this.parentNode.shadowRoot.querySelector('#allRoles').checked = true;
-			}
-			this.parentNode.shadowRoot.querySelector('#confirm').disabled = false;
-		} else {
-			if (this.unSelectedCount() === roleCount) {
-				this.parentNode.shadowRoot.querySelector('#confirm').disabled = true;
-			}
-			this.parentNode.shadowRoot.querySelector('#allRoles').checked = false;
-		}
+	_onCheckboxChange(event) {
+		this.selected = event.target.checked;
+		this.dispatchEvent(new CustomEvent('d2l-labs-role-item-selection-change', {
+			bubbles: true
+		}));
 	}
 }
 

@@ -22,7 +22,7 @@ describe('d2l-labs-role-selector', () => {
 
 		beforeEach(async() => {
 			el = await fixture(html`<d2l-labs-role-selector></d2l-labs-role-selector>`);
-			await new Promise(resolve => setTimeout(resolve, 200)); 
+			await new Promise(resolve => setTimeout(resolve, 200));
 			await el.updateComplete;
 		});
 
