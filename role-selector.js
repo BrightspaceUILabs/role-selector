@@ -31,7 +31,7 @@ class RoleSelector extends LitElement {
 	}
 
 	async firstUpdated() {
-		let nodes = this.fetchChildElements();
+		const nodes = this.fetchChildElements();
 		this.selectedRoles = nodes.map(obj => {
 			return { Identifier: obj.itemId, DisplayName: obj.displayName };
 		});
@@ -40,23 +40,23 @@ class RoleSelector extends LitElement {
 	render() {
 		return html`
 			<div>
-				<p id="selected">All Roles</p>
+				<p id='selected'>All Roles</p>
 			</div>
-			<d2l-button id="open" @click="${this._handleDialog}">Select Roles</d2l-button>
-			<d2l-dialog id="dialog" width="300" title-text="Select Roles">
-			<d2l-input-checkbox checked id="allRoles" name="All Roles" @change=${this._handleSelectAllRoles}>
+			<d2l-button id='open' @click='${this._handleDialog}'>Select Roles</d2l-button>
+			<d2l-dialog id='dialog' width='300' title-text='Select Roles'>
+			<d2l-input-checkbox checked id='allRoles' name='All Roles' @change=${this._handleSelectAllRoles}>
 				All Roles
 			</d2l-input-checkbox>
 			<hr>
 			<slot></slot>
-			<d2l-button slot="footer" id="confirm" primary data-dialog-action="done" @click=${this._handleConfirmBtn}>Select</d2l-button>
-			<d2l-button slot="footer" data-dialog-action>Cancel</d2l-button>
+			<d2l-button slot='footer' id='confirm' primary data-dialog-action='done' @click=${this._handleConfirmBtn}>Select</d2l-button>
+			<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
 			</d2l-dialog>
 		`;
 	}
 
 	fetchChildElements() {
-		let slots = this.shadowRoot.querySelector('slot');
+		const slots = this.shadowRoot.querySelector('slot');
 		return slots.assignedElements();
 	}
 
@@ -65,25 +65,25 @@ class RoleSelector extends LitElement {
 	}
 
 	_handleSelectAllRoles(e) {
-		let nodes = this.fetchChildElements();
+		const nodes = this.fetchChildElements();
 		nodes.forEach(obj => obj.checked = e.target.checked);
 		this.shadowRoot.querySelector('#confirm').disabled = !e.target.checked;
 	}
 
 	_handleConfirmBtn() {
 		this.selectedRoles = [];
-		let nodes = this.fetchChildElements();
-		nodes.forEach(obj => obj.shadowRoot.querySelector('#item').checked
+		const nodes = this.fetchChildElements();
+		nodes.forEach(obj => (obj.shadowRoot.querySelector('#item').checked
 			? obj.parentNode.selectedRoles.push({ Identifier: obj.itemId, DisplayName: obj.displayName })
 			: obj.parentNode.selectedRoles.filter(x => (x.Identifier !== obj.itemId))
-		);
+		));
 
 		this.shadowRoot.querySelector('#selected').innerHTML = '';
-		let count = this.selectedRoles.length;
+		const count = this.selectedRoles.length;
 		if (count === nodes.length) {
-			this.shadowRoot.querySelector('#selected').append("All Roles");
+			this.shadowRoot.querySelector('#selected').append('All Roles');
 		} else {
-			for (var index = 0; index < count; index++) {
+			for (let index = 0; index < count; index++) {
 				if (index > 0) {
 					this.shadowRoot.querySelector('#selected').append(', ', this.selectedRoles[index].DisplayName);
 				} else {
@@ -91,13 +91,17 @@ class RoleSelector extends LitElement {
 				}
 			}
 		}
-		
+		this._handleEvent();
+	}
+
+	_handleEvent() {
 		this.dispatchEvent(new CustomEvent('d2l-labs-role-selected', {
 			detail: {
-				message: this.selectedRoles,
+				message: this.selectedRoles
 			},
 			bubbles: true,
-			composed: true })
+			composed: true
+		})
 		);
 	}
 }

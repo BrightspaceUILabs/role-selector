@@ -41,8 +41,8 @@ class RoleItem extends LitElement {
 	}
 
 	selectedCount() {
-		var count = 1;
-		let nodes = this._fetchNodes();
+		let count = 1;
+		const nodes = this._fetchNodes();
 		nodes.forEach(obj => {
 			if (obj.shadowRoot.querySelector('#item').checked) {
 				count += 1;
@@ -52,8 +52,8 @@ class RoleItem extends LitElement {
 	}
 
 	unSelectedCount() {
-		var count = 1;
-		let nodes = this._fetchNodes();
+		let count = 1;
+		const nodes = this._fetchNodes();
 		nodes.forEach(obj => {
 			if (!obj.shadowRoot.querySelector('#item').checked) {
 				count += 1;
@@ -63,13 +63,13 @@ class RoleItem extends LitElement {
 	}
 
 	_fetchNodes() {
-		let slots = this.parentNode.shadowRoot.querySelector('slot');
+		const slots = this.parentNode.shadowRoot.querySelector('slot');
 		return slots.assignedElements();
 	}
 
 	_handleSelectionClick(e) {
-		let nodes = this._fetchNodes();
-		let roleCount = nodes.length;
+		const nodes = this._fetchNodes();
+		const roleCount = nodes.length;
 
 		if (!e.target.checked) {
 			if (this.selectedCount() === roleCount) {
