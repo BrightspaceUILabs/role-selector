@@ -12,6 +12,7 @@
     "lint": "npm run lint:eslint && npm run lint:lit",
     "lint:eslint": "eslint . --ext .js,.html",
     "lint:lit": "lit-analyzer role-selector.js demo test",
+    "lint:style": "stylelint \"**/*.js\"",
     "start": "es-dev-server --app-index demo/index.html --node-resolve --dedupe --open --watch",
     "test": "npm run lint && npm run test:headless && npm run test:diff",
     "test:diff": "mocha ./**/*.visual-diff.js -t 40000",
@@ -33,16 +34,20 @@
     "eslint": "^6",
     "eslint-config-brightspace": "^0.6.7",
     "eslint-plugin-html": "^6",
+    "eslint-plugin-json": "^2.1.2",
     "eslint-plugin-lit": "^1",
     "eslint-plugin-sort-class-members": "^1",
     "frau-ci": "^1",
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
-    "puppeteer": "^4"
+    "puppeteer": "^4",
+    "web-component-tester": "^6.9.2"
   },
   "dependencies": {
     "@brightspace-ui/core": "^1",
+    "@brightspace-ui/stylelint-config": "0.0.1",
     "@webcomponents/webcomponentsjs": "^2",
-    "lit-element": "^2"
+    "lit-element": "^2",
+    "stylelint": "^13.7.1"
   }
 }
