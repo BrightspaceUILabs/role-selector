@@ -25,7 +25,7 @@ jobs:
         run: npm i
       - name: Run tests
         if: (!startsWith(github.ref, 'refs/tags/')) # run on all but tags
-        run: npm run test:polymer:sauce
+        run: npm run test:headless
         env:
           SAUCE_USERNAME: lweber-d2l
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_LABS_ACCESS_KEY }}

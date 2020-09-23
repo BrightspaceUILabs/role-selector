@@ -7,7 +7,7 @@
   },
   "files": [
     "role-selector.js",
-    "role-item"
+    "role-item.js"
   ],
   "scripts": {
     "lint": "npm run lint:eslint && npm run lint:lit",
@@ -31,21 +31,19 @@
     "@open-wc/testing-karma": "^3",
     "babel-eslint": "^10",
     "deepmerge": "^3",
-    "es-dev-server": "^1",
+    "es-dev-server": "^1.57.4",
     "eslint": "^6",
     "eslint-config-brightspace": "^0.6.7",
     "eslint-plugin-html": "^6",
-    "eslint-plugin-json": "^2.1.2",
     "eslint-plugin-lit": "^1",
     "eslint-plugin-sort-class-members": "^1",
     "frau-ci": "^1",
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
-    "puppeteer": "^4",
-    "web-component-tester": "^6.9.2"
+    "puppeteer": "^4"
   },
   "dependencies": {
-    "@brightspace-ui/core": "^1",
+    "@brightspace-ui/core": "^1.80.1",
     "@brightspace-ui/stylelint-config": "0.0.1",
     "@webcomponents/webcomponentsjs": "^2",
     "lit-element": "^2",
