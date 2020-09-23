@@ -6,7 +6,8 @@
     "access": "public"
   },
   "files": [
-    "role-selector.js"
+    "role-selector.js",
+    "role-item"
   ],
   "scripts": {
     "lint": "npm run lint:eslint && npm run lint:lit",
