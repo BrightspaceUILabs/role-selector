@@ -1,6 +1,7 @@
 import '../role-selector.js';
 import { expect, fixture, html } from '@open-wc/testing';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
+//import sinon from '../node_modules/sinon/pkg/sinon-esm.js';
 
 describe('d2l-labs-role-selector', () => {
 
@@ -12,26 +13,42 @@ describe('d2l-labs-role-selector', () => {
 	});
 
 	describe('constructor', () => {
-		it('should construct', () => {
+		it('should construct role-selector', () => {
 			runConstructor('d2l-labs-role-selector');
 		});
 	});
 
 	//describe('eventing', () => {
 	//	let el;
+	//	const tempFixture = html`
+	//						<d2l-labs-role-selector>
+	//							<d2l-labs-role-item item-id="1" display-name="Administrator"></d2l-labs-role-item>
+	//							<d2l-labs-role-item item-id="2" display-name="Student"></d2l-labs-role-item>
+	//						</d2l-labs-role-selector>`;
 
 	//	beforeEach(async() => {
-	//		el = await fixture(html`<d2l-labs-role-selector></d2l-labs-role-selector>`);
+	//		el = await fixture(tempFixture);
 	//		await new Promise(resolve => setTimeout(resolve, 200));
 	//		await el.updateComplete;
 	//	});
 
-	//	it('should fire a d2l-labs-role-selected event when an Select button is clicked', async() => {
-	//		el.shadowRoot.querySelector('#confirm').click();
+	//	it('should render all role items as selected', async() => {
+	//		const checkboxList = el.shadowRoot.querySelector('slot').assignedNodes({ flatten: true }).filter((node) => {
+	//			return node.nodeType === Node.ELEMENT_NODE;
+	//		});
+	//		expect(checkboxList.length).to.equal(2);
+	//		expect(el._itemCount).to.equal(2);
+	//	});
 
-	//		const event = await oneEvent(el, 'd2l-labs-role-selected'); // if no event is fired, this will time out after 2 seconds
-	//		expect(event.type).to.equal('d2l-labs-role-selected');
-	//		expect(event.target).to.equal(el);
+	//	it('should hide Select button if all role items are unselected', () => {
+	//		const checkboxList = Array.from(el.shadowRoot.querySelectorAll('d2l-labs-role-item'));
+	//		checkboxList.forEach(checkbox => {
+	//			checkbox.selected = true;
+	//		});
+	//		expect(el._selectedItemCount).to.be.equal(0);
+
+	//		const buttons = el.shadowRoot.querySelector('d2l-dialog > d2l-button');
+	//		expect(buttons.disabled).to.be.true;
 	//	});
 	//});
 
