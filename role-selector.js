@@ -1,5 +1,6 @@
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/button/button.js';
+import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 
@@ -47,10 +48,10 @@ class RoleSelector extends LitElement {
 			</div>
 			<d2l-button @click='${this._handleDialog}'>Select Roles</d2l-button>
 			<d2l-dialog id='dialog' width='300' title-text='Select Roles' @d2l-labs-role-item-selection-change='${this._handleSelectionChange}' >
-				<d2l-input-checkbox @change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>All Roles</d2l-input-checkbox>
+				<d2l-input-checkbox id='allRoles' @change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>All Roles</d2l-input-checkbox>
 				<hr>
 				<slot @slotchange="${this._handleSlotChange}"></slot>
-				<d2l-button slot='footer' primary data-dialog-action='done' @click=${this._handleConfirmBtn} ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
+				<d2l-button id='confirm' slot='footer' primary data-dialog-action='done' @click=${this._handleConfirmBtn} ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
 				<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
 			</d2l-dialog>
 		`;
@@ -85,12 +86,12 @@ class RoleSelector extends LitElement {
 		this._selectedItemCount = (e.target.checked ? this._itemCount : 0);
 	}
 
-	_handleSelectionChange(e) {
-		if (e.target.selected) {
-			this._selectedItemCount++;
-		} else {
-			this._selectedItemCount--;
-		}
+	_handleSelectionChange() {
+		const items = this._getItems();
+		this._selectedItemCount = items.reduce((acc, item) => {
+			if (item.selected) return ++acc;
+			else return acc;
+		}, 0);
 	}
 
 	_handleConfirmBtn() {

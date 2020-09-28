@@ -12,27 +12,8 @@ describe('d2l-labs-role-selector', () => {
 	});
 
 	describe('constructor', () => {
-		it('should construct', () => {
+		it('should construct role-selector', () => {
 			runConstructor('d2l-labs-role-selector');
 		});
 	});
-
-	//describe('eventing', () => {
-	//	let el;
-
-	//	beforeEach(async() => {
-	//		el = await fixture(html`<d2l-labs-role-selector></d2l-labs-role-selector>`);
-	//		await new Promise(resolve => setTimeout(resolve, 200));
-	//		await el.updateComplete;
-	//	});
-
-	//	it('should fire a d2l-labs-role-selected event when an Select button is clicked', async() => {
-	//		el.shadowRoot.querySelector('#confirm').click();
-
-	//		const event = await oneEvent(el, 'd2l-labs-role-selected'); // if no event is fired, this will time out after 2 seconds
-	//		expect(event.type).to.equal('d2l-labs-role-selected');
-	//		expect(event.target).to.equal(el);
-	//	});
-	//});
-
 });
