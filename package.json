@@ -42,6 +42,7 @@
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
     "puppeteer": "^4",
+    "semantic-release": "^17.1.2",
     "sinon": "^9.0.3"
   },
   "dependencies": {
