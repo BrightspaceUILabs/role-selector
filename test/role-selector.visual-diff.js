@@ -32,6 +32,7 @@ describe('d2l-labs-role-selector', () => {
 		await page.$eval('#role-selector', (elem) => {
 			elem._handleDialog();
 		});
+		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
 	});
 
 	it('1-role-item-unchecked', async function () {
@@ -44,7 +45,7 @@ describe('d2l-labs-role-selector', () => {
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
 	});
 
-	it('2-role-items-selected', async function () {
+	it('2-role-items-selected',  async function () {
 		await page.$eval('#role-selector', (elem) => {
 			elem._handleDialog();
 			elem.querySelector('d2l-labs-role-item').selected = false;
