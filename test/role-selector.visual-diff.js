@@ -28,35 +28,43 @@ describe('d2l-labs-role-selector', () => {
 	});
 
 	it('role-item-content', async function() {
-		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
+		const dialogOpenEvent = oneEvent(page, '#role-selector', 'd2l-dialog-open');
 		await page.$eval('#role-selector', (elem) => {
 			elem._handleDialog();
 		});
+		await dialogOpenEvent;
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
 	});
 
 	it('1-role-item-unchecked', async function() {
+		const dialogOpenEvent = oneEvent(page, '#role-selector', 'd2l-dialog-open');
 		const eventPromise = oneEvent(page, '#role-selector > d2l-labs-role-item', 'd2l-labs-role-item-selection-change');
 		await page.$eval('#role-selector', (elem) => {
 			elem._handleDialog();
 			elem.querySelector('d2l-labs-role-item').selected = false;
 		});
+		await dialogOpenEvent;
 		await eventPromise;
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
 	});
 
-	it('2-role-items-selected',  async function() {
+	it('2-role-items-selected', async function () {
+		const dialogOpenEvent = oneEvent(page, '#role-selector', 'd2l-dialog-open');
+		const dialogCloseEvent = oneEvent(page, '#role-selector', 'd2l-dialog-close');
 		await page.$eval('#role-selector', (elem) => {
 			elem._handleDialog();
 			elem.querySelector('d2l-labs-role-item').selected = false;
 		});
+		await dialogOpenEvent;
 		await page.$eval('#role-selector', (elem) => {
 			elem.shadowRoot.querySelector('#confirm').click();
 		});
+		await dialogCloseEvent;
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
 	});
 
 	it('all-role-items-unchecked', async function() {
+		const dialogOpenEvent = oneEvent(page, '#role-selector', 'd2l-dialog-open');
 		const eventPromise = oneEvent(page, '#role-selector > d2l-labs-role-item', 'd2l-labs-role-item-selection-change');
 		await page.$eval('#role-selector', (elem) => {
 			const items = elem._getItems();
@@ -65,6 +73,7 @@ describe('d2l-labs-role-selector', () => {
 				item.selected = false;
 			});
 		});
+		await dialogOpenEvent;
 		await eventPromise;
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
 	});
