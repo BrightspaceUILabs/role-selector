@@ -48,7 +48,7 @@ describe('d2l-labs-role-selector', () => {
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle());
 	});
 
-	it('2-role-items-selected', async function () {
+	it('2-role-items-selected', async function() {
 		const dialogOpenEvent = oneEvent(page, '#role-selector', 'd2l-dialog-open');
 		const dialogCloseEvent = oneEvent(page, '#role-selector', 'd2l-dialog-close');
 		await page.$eval('#role-selector', (elem) => {
