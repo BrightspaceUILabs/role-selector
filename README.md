@@ -20,6 +20,8 @@
 
 Select roles from a dialog with role items
 
+![Example](demo/example-dialog-content.png)
+
 ## Installation
 
 To install from NPM:
