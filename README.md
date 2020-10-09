@@ -9,14 +9,14 @@
 > - [ ] [Design organization buy-in](https://github.com/BrightspaceUI/guide/wiki/Before-you-build#working-with-design)
 > - [ ] [design.d2l entry](http://design.d2l/)
 > - [ ] [Architectural sign-off](https://github.com/BrightspaceUI/guide/wiki/Before-you-build#web-component-architecture)
-> - [ ] [Continuous integration](https://github.com/BrightspaceUI/guide/wiki/Testing#testing-continuously-with-travis-ci)
-> - [ ] [Cross-browser testing](https://github.com/BrightspaceUI/guide/wiki/Testing#cross-browser-testing-with-sauce-labs)
+> - [x] [Continuous integration](https://github.com/BrightspaceUI/guide/wiki/Testing#testing-continuously-with-travis-ci)
+> - [x] [Cross-browser testing](https://github.com/BrightspaceUI/guide/wiki/Testing#cross-browser-testing-with-sauce-labs)
 > - [ ] [Unit tests](https://github.com/BrightspaceUI/guide/wiki/Testing#testing-with-polymer-test) (if applicable)
 > - [ ] [Accessibility tests](https://github.com/BrightspaceUI/guide/wiki/Testing#automated-accessibility-testing-with-axe)
-> - [ ] [Visual diff tests](https://github.com/BrightspaceUI/visual-diff)
+> - [x] [Visual diff tests](https://github.com/BrightspaceUI/visual-diff)
 > - [ ] [Localization](https://github.com/BrightspaceUI/guide/wiki/Localization) with Serge (if applicable)
-> - [ ] Demo page
-> - [ ] README documentation
+> - [x] Demo page
+> - [x] README documentation
 
 Select roles from a dialog with role items
 
@@ -31,17 +31,30 @@ npm install @brightspace-ui-labs/role-selector
 ## Usage
 
 ```html
-<script type="module">
-    import '@brightspace-ui-labs/role-selector/role-selector.js';
-</script>
-<d2l-labs-role-selector>My element</d2l-labs-role-selector>
+<head>
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script type="module">
+		import '/node_modules/@brightspace-ui-labs/role-selector/role-selector.js';
+		import '/node_modules/@brightspace-ui-labs/role-selector/role-item.js';
+	</script>
+</head>
+```
+Add the component to your page
+
+### Basic Usage
+
+```html
+<d2l-labs-role-selector>
+	<d2l-labs-role-item item-id="1" display-name="Role1"></d2l-labs-role-item>
+	<d2l-labs-role-item item-id="2" display-name="Role2"></d2l-labs-role-item>
+	<d2l-labs-role-item item-id="3" display-name="Role3"></d2l-labs-role-item>
+	...
+</d2l-labs-role-selector>
 ```
 
-**Properties:**
+### Events
 
-| Property | Type | Description |
-|--|--|--|
-| | | |
+- `d2l-labs-role-selected`: fired on clicking Select button in the dialog.
 
 **Accessibility:**
 
