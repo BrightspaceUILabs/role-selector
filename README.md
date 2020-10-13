@@ -3,6 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/@brightspace-ui-labs/role-selector.svg)](https://www.npmjs.org/package/@brightspace-ui-labs/role-selector)
 [![Dependabot badge](https://flat.badgen.net/dependabot/BrightspaceUILabs/role-selector?icon=dependabot)](https://app.dependabot.com/)
 [![Build status](https://travis-ci.com/@brightspace-ui-labs/role-selector.svg?branch=master)](https://travis-ci.com/@brightspace-ui-labs/role-selector)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 > Note: this is a ["labs" component](https://github.com/BrightspaceUI/guide/wiki/Component-Tiers). While functional, these tasks are prerequisites to promotion to BrightspaceUI "official" status:
 >
