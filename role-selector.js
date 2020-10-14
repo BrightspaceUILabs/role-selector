@@ -10,7 +10,8 @@ class RoleSelector extends LitElement {
 		return {
 			_itemCount: { type: Number },
 			_selectedItemCount: { type: Number },
-			_selectedItemText: { type: String }
+			_selectedItemText: { type: String },
+			_filterData: { type: Array }
 		};
 	}
 
@@ -43,9 +44,7 @@ class RoleSelector extends LitElement {
 
 	render() {
 		return html`
-			<div>
-				<p>${this._selectedItemText}</p >
-			</div>
+			<p>Roles Included: ${this._selectedItemText}</p >
 			<d2l-button @click='${this._handleDialog}'>Select Roles</d2l-button>
 			<d2l-dialog id='dialog' width='300' title-text='Select Roles' @d2l-labs-role-item-selection-change='${this._handleSelectionChange}' >
 				<d2l-input-checkbox id='allRoles' @change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>All Roles</d2l-input-checkbox>
@@ -97,6 +96,8 @@ class RoleSelector extends LitElement {
 	_handleConfirmBtn() {
 		const selectedItems = this._getSelectedItems();
 
+		this._setFilterData(selectedItems);
+
 		this._selectedItemText = '';
 		if (selectedItems.length === this._itemCount) {
 			this._selectedItemText = 'All Roles';
@@ -110,13 +111,23 @@ class RoleSelector extends LitElement {
 			}
 		}
 
+		this._handleEvent();
+	}
+
+	_handleEvent() {
 		this.dispatchEvent(new CustomEvent('d2l-labs-role-selected', {
 			detail: {
-				message: selectedItems
+				rolesSelected: this._filterData
 			},
 			bubbles: true,
 			composed: true
 		}));
+	}
+
+	_setFilterData(roleData) {
+		this._filterData = roleData.map(obj => {
+			return { id: obj.itemId, displayName: obj.displayName };
+		});
 	}
 }
 
