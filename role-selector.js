@@ -2,8 +2,8 @@ import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/colors/colors.js';
-import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 
 class RoleSelector extends LitElement {
 
