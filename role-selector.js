@@ -3,6 +3,7 @@ import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 
 class RoleSelector extends LitElement {
 
@@ -10,12 +11,13 @@ class RoleSelector extends LitElement {
 		return {
 			_itemCount: { type: Number },
 			_selectedItemCount: { type: Number },
-			_selectedItemText: { type: String }
+			_selectedItemText: { type: String },
+			_filterData: { type: Array }
 		};
 	}
 
 	static get styles() {
-		return css`
+		const roleSelectorStyles = css`
 			:host {
 				display: inline-block;
 			}
@@ -27,6 +29,10 @@ class RoleSelector extends LitElement {
 				border: 1px solid var(--d2l-color-sylvite);
 			}
 		`;
+		return [
+			roleSelectorStyles,
+			inputLabelStyles
+		];
 	}
 
 	constructor() {
@@ -43,9 +49,7 @@ class RoleSelector extends LitElement {
 
 	render() {
 		return html`
-			<div>
-				<p>${this._selectedItemText}</p >
-			</div>
+			<label class="d2l-input-label">Roles Included: ${this._selectedItemText}</label>
 			<d2l-button @click='${this._handleDialog}'>Select Roles</d2l-button>
 			<d2l-dialog id='dialog' width='300' title-text='Select Roles' @d2l-labs-role-item-selection-change='${this._handleSelectionChange}' >
 				<d2l-input-checkbox id='allRoles' @change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>All Roles</d2l-input-checkbox>
@@ -97,6 +101,8 @@ class RoleSelector extends LitElement {
 	_handleConfirmBtn() {
 		const selectedItems = this._getSelectedItems();
 
+		this._setFilterData(selectedItems);
+
 		this._selectedItemText = '';
 		if (selectedItems.length === this._itemCount) {
 			this._selectedItemText = 'All Roles';
@@ -110,13 +116,23 @@ class RoleSelector extends LitElement {
 			}
 		}
 
+		this._handleEvent();
+	}
+
+	_handleEvent() {
 		this.dispatchEvent(new CustomEvent('d2l-labs-role-selected', {
 			detail: {
-				message: selectedItems
+				rolesSelected: this._filterData
 			},
 			bubbles: true,
 			composed: true
 		}));
+	}
+
+	_setFilterData(roleData) {
+		this._filterData = roleData.map(obj => {
+			return { id: obj.itemId, displayName: obj.displayName };
+		});
 	}
 }
 
