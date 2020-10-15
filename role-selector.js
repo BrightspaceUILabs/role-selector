@@ -10,8 +10,14 @@ class RoleSelector extends LitElement {
 	static get properties() {
 		return {
 			_itemCount: { type: Number },
-			_selectedItemCount: { type: Number },
-			_selectedItemText: { type: String },
+			_selectedItemCount: {
+				type: Number,
+				attribute: 'selected-item-count'
+			},
+			_selectedItemText: {
+				type: String,
+				attribute: 'selected-item-text'
+			},
 			_filterData: { type: Array }
 		};
 	}
@@ -43,8 +49,14 @@ class RoleSelector extends LitElement {
 
 	async firstUpdated() {
 		this._itemCount = this._getItems().length;
-		this._selectedItemCount = this._itemCount;
-		this._selectedItemText = 'All Roles';
+
+		if (this._selectedItemCount === 0) {
+			this._selectedItemCount = this._itemCount;
+		}
+
+		if (this._itemCount === this._selectedItemCount) {
+			this._selectedItemText = 'All Roles';
+		}
 	}
 
 	render() {
