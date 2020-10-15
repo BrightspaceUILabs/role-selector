@@ -9,7 +9,9 @@ class RoleSelector extends LitElement {
 
 	static get properties() {
 		return {
-			_itemCount: { type: Number },
+			_itemCount: {
+				type: Number
+			},
 			_selectedItemCount: {
 				type: Number,
 				attribute: 'selected-item-count'
@@ -18,7 +20,9 @@ class RoleSelector extends LitElement {
 				type: String,
 				attribute: 'selected-item-text'
 			},
-			_filterData: { type: Array }
+			_filterData: {
+				type: Array
+			}
 		};
 	}
 
