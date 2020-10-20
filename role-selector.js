@@ -5,6 +5,8 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 
+const DONE_ACTION = 'done';
+
 class RoleSelector extends LitElement {
 
 	static get properties() {
@@ -63,12 +65,22 @@ class RoleSelector extends LitElement {
 		return html`
 			<label class="d2l-input-label">Roles Included: &nbsp; ${this._selectedItemText}</label>
 			<d2l-button @click='${this._handleDialog}'>Select Roles</d2l-button>
-			<d2l-dialog id='dialog' width='300' title-text='Select Roles' @d2l-labs-role-item-selection-change='${this._handleSelectionChange}' >
-				<d2l-input-checkbox id='allRoles' @change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>All Roles</d2l-input-checkbox>
-				<hr>
-				<slot @slotchange="${this._handleSlotChange}"></slot>
-				<d2l-button slot='footer' primary data-dialog-action='done' @click=${this._handleConfirmBtn} ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
-				<d2l-button slot='footer' data-dialog-action @click=${this._handleCancelBtn}>Cancel</d2l-button>
+			<d2l-dialog
+					id='dialog'
+					width='300'
+					title-text='Select Roles'
+					@d2l-dialog-close=${this._handleDialogClosed}
+					@d2l-labs-role-item-selection-change='${this._handleSelectionChange}'>
+
+					<d2l-input-checkbox
+									id='allRoles'
+									@change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>
+									All Roles
+					</d2l-input-checkbox>
+					<hr>
+					<slot @slotchange="${this._handleSlotChange}"></slot>
+					<d2l-button slot='footer' primary data-dialog-action='${DONE_ACTION}' ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
+					<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
 			</d2l-dialog>
 		`;
 	}
@@ -117,19 +129,16 @@ class RoleSelector extends LitElement {
 		}, 0);
 	}
 
-	_handleCancelBtn() {
-		this._getItems().forEach(item => {
-			if (this._initialSelection.includes(item.itemId)) {
-				item.selected = true;
-			} else {
-				item.selected = false;
-			}
-		});
-	}
+	_handleDialogClosed(event) {
+		const { detail: { action } } = event;
 
-	_handleConfirmBtn() {
-		const selectedItems = this._getSelectedItems();
-		this._renderSelectedItemsText(selectedItems);
+		if (action === DONE_ACTION) {
+			this._renderSelectedItemsText(this._getSelectedItems());
+		} else {
+			this._getItems().forEach(item => {
+				item.selected = this._initialSelection.includes(item.itemId);
+			});
+		}
 	}
 
 	_handleEvent() {
@@ -158,7 +167,7 @@ class RoleSelector extends LitElement {
 			});
 		}
 
-		this._setFilterData(this._getSelectedItems());
+		this._setFilterData(selectedItems);
 		this._handleEvent();
 	}
 
