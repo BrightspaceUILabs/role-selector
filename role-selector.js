@@ -11,6 +11,12 @@ class RoleSelector extends LitElement {
 
 	static get properties() {
 		return {
+			_filterData: {
+				type: Array
+			},
+			_initialSelection: {
+				type: Array
+			},
 			_itemCount: {
 				type: Number
 			},
@@ -19,12 +25,6 @@ class RoleSelector extends LitElement {
 			},
 			_selectedItemText: {
 				type: String
-			},
-			_filterData: {
-				type: Array
-			},
-			_initialSelection: {
-				type: Array
 			}
 		};
 	}
@@ -79,7 +79,7 @@ class RoleSelector extends LitElement {
 					</d2l-input-checkbox>
 					<hr>
 					<slot @slotchange="${this._handleSlotChange}"></slot>
-					<d2l-button slot='footer' primary data-dialog-action='${DONE_ACTION}' ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
+					<d2l-button id='confirm' slot='footer' primary data-dialog-action='${DONE_ACTION}' ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
 					<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
 			</d2l-dialog>
 		`;
@@ -157,10 +157,12 @@ class RoleSelector extends LitElement {
 			this._getItems().forEach(item => {
 				item.selected = true;
 			});
+
 			this._selectedItemCount = this._itemCount;
 			this._selectedItemText = 'All Roles';
 		} else {
 			this._selectedItemCount = selectedItems.length;
+
 			selectedItems.forEach((item, index) => {
 				item.selected = true;
 				this._selectedItemText = index > 0 ? `${this._selectedItemText},  ${item.displayName}` : `${item.displayName}`;
