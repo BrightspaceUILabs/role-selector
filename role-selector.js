@@ -5,23 +5,26 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 
+const DONE_ACTION = 'done';
+
 class RoleSelector extends LitElement {
 
 	static get properties() {
 		return {
+			_filterData: {
+				type: Array
+			},
+			_initialSelection: {
+				type: Array
+			},
 			_itemCount: {
 				type: Number
 			},
 			_selectedItemCount: {
-				type: Number,
-				attribute: 'selected-item-count'
+				type: Number
 			},
 			_selectedItemText: {
-				type: String,
-				attribute: 'selected-item-text'
-			},
-			_filterData: {
-				type: Array
+				type: String
 			}
 		};
 	}
@@ -49,30 +52,35 @@ class RoleSelector extends LitElement {
 		super();
 		this._itemCount = 0;
 		this._selectedItemCount = 0;
+		this._selectedItemText = '';
+		this._filterData = [];
 	}
 
 	async firstUpdated() {
 		this._itemCount = this._getItems().length;
-
-		if (this._selectedItemCount === 0) {
-			this._selectedItemCount = this._itemCount;
-		}
-
-		if (this._itemCount === this._selectedItemCount) {
-			this._selectedItemText = 'All Roles';
-		}
+		this._renderSelectedItemsText(this._getSelectedItems());
 	}
 
 	render() {
 		return html`
-			<label class="d2l-input-label">Roles Included: ${this._selectedItemText}</label>
+			<label class="d2l-input-label">Roles Included: &nbsp; ${this._selectedItemText}</label>
 			<d2l-button @click='${this._handleDialog}'>Select Roles</d2l-button>
-			<d2l-dialog id='dialog' width='300' title-text='Select Roles' @d2l-labs-role-item-selection-change='${this._handleSelectionChange}' >
-				<d2l-input-checkbox id='allRoles' @change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>All Roles</d2l-input-checkbox>
-				<hr>
-				<slot @slotchange="${this._handleSlotChange}"></slot>
-				<d2l-button id='confirm' slot='footer' primary data-dialog-action='done' @click=${this._handleConfirmBtn} ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
-				<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
+			<d2l-dialog
+					id='dialog'
+					width='300'
+					title-text='Select Roles'
+					@d2l-dialog-close=${this._handleDialogClosed}
+					@d2l-labs-role-item-selection-change='${this._handleSelectionChange}'>
+
+					<d2l-input-checkbox
+									id='allRoles'
+									@change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>
+									All Roles
+					</d2l-input-checkbox>
+					<hr>
+					<slot @slotchange="${this._handleSlotChange}"></slot>
+					<d2l-button id='confirm' slot='footer' primary data-dialog-action='${DONE_ACTION}' ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
+					<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
 			</d2l-dialog>
 		`;
 	}
@@ -96,6 +104,13 @@ class RoleSelector extends LitElement {
 
 	_handleDialog() {
 		this.shadowRoot.querySelector('#dialog').opened = true;
+		this._initialSelectedRoles();
+	}
+
+	_initialSelectedRoles() {
+		this._initialSelection = this._getSelectedItems().map(obj => {
+			return obj.itemId;
+		});
 	}
 
 	_handleSelectAllRoles(e) {
@@ -114,25 +129,16 @@ class RoleSelector extends LitElement {
 		}, 0);
 	}
 
-	_handleConfirmBtn() {
-		const selectedItems = this._getSelectedItems();
+	_handleDialogClosed(event) {
+		const { detail: { action } } = event;
 
-		this._setFilterData(selectedItems);
-
-		this._selectedItemText = '';
-		if (selectedItems.length === this._itemCount) {
-			this._selectedItemText = 'All Roles';
+		if (action === DONE_ACTION) {
+			this._renderSelectedItemsText(this._getSelectedItems());
 		} else {
-			for (let i = 0; i < selectedItems.length; i++) {
-				if (i > 0) {
-					this._selectedItemText = `${this._selectedItemText},  ${selectedItems[i].displayName}`;
-				} else {
-					this._selectedItemText = `${selectedItems[i].displayName}`;
-				}
-			}
+			this._getItems().forEach(item => {
+				item.selected = this._initialSelection.includes(item.itemId);
+			});
 		}
-
-		this._handleEvent();
 	}
 
 	_handleEvent() {
@@ -145,9 +151,31 @@ class RoleSelector extends LitElement {
 		}));
 	}
 
+	_renderSelectedItemsText(selectedItems) {
+		this._selectedItemText = '';
+		if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
+			this._getItems().forEach(item => {
+				item.selected = true;
+			});
+
+			this._selectedItemCount = this._itemCount;
+			this._selectedItemText = 'All Roles';
+		} else {
+			this._selectedItemCount = selectedItems.length;
+
+			selectedItems.forEach((item, index) => {
+				item.selected = true;
+				this._selectedItemText = index > 0 ? `${this._selectedItemText},  ${item.displayName}` : `${item.displayName}`;
+			});
+		}
+
+		this._setFilterData(selectedItems);
+		this._handleEvent();
+	}
+
 	_setFilterData(roleData) {
 		this._filterData = roleData.map(obj => {
-			return { id: obj.itemId, displayName: obj.displayName };
+			return obj.itemId;
 		});
 	}
 }

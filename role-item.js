@@ -5,9 +5,19 @@ class RoleItem extends LitElement {
 
 	static get properties() {
 		return {
-			itemId: { type: Number, attribute: 'item-id' },
-			displayName: { type: String, attribute: 'display-name' },
-			selected: { type: Boolean, reflect: true }
+			itemId: {
+				type: Number,
+				attribute: 'item-id'
+			},
+			displayName: {
+				type: String,
+				attribute: 'display-name'
+			},
+			selected: {
+				type: Boolean,
+				reflect: true,
+				attribute: 'selected'
+			}
 		};
 	}
 
@@ -20,11 +30,6 @@ class RoleItem extends LitElement {
 				display: none;
 			}
 		`;
-	}
-
-	constructor() {
-		super();
-		this.selected = true;
 	}
 
 	render() {
