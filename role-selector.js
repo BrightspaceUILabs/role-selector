@@ -13,14 +13,15 @@ class RoleSelector extends LitElement {
 				type: Number
 			},
 			_selectedItemCount: {
-				type: Number,
-				attribute: 'selected-item-count'
+				type: Number
 			},
 			_selectedItemText: {
-				type: String,
-				attribute: 'selected-item-text'
+				type: String
 			},
 			_filterData: {
+				type: Array
+			},
+			_initialSelection: {
 				type: Array
 			}
 		};
@@ -49,30 +50,25 @@ class RoleSelector extends LitElement {
 		super();
 		this._itemCount = 0;
 		this._selectedItemCount = 0;
+		this._selectedItemText = '';
+		this._filterData = [];
 	}
 
 	async firstUpdated() {
 		this._itemCount = this._getItems().length;
-
-		if (this._selectedItemCount === 0) {
-			this._selectedItemCount = this._itemCount;
-		}
-
-		if (this._itemCount === this._selectedItemCount) {
-			this._selectedItemText = 'All Roles';
-		}
+		this._renderSelectedItemsText(this._getSelectedItems());
 	}
 
 	render() {
 		return html`
-			<label class="d2l-input-label">Roles Included: ${this._selectedItemText}</label>
+			<label class="d2l-input-label">Roles Included: &nbsp; ${this._selectedItemText}</label>
 			<d2l-button @click='${this._handleDialog}'>Select Roles</d2l-button>
 			<d2l-dialog id='dialog' width='300' title-text='Select Roles' @d2l-labs-role-item-selection-change='${this._handleSelectionChange}' >
 				<d2l-input-checkbox id='allRoles' @change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>All Roles</d2l-input-checkbox>
 				<hr>
 				<slot @slotchange="${this._handleSlotChange}"></slot>
-				<d2l-button id='confirm' slot='footer' primary data-dialog-action='done' @click=${this._handleConfirmBtn} ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
-				<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
+				<d2l-button slot='footer' primary data-dialog-action='done' @click=${this._handleConfirmBtn} ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
+				<d2l-button slot='footer' data-dialog-action @click=${this._handleCancelBtn}>Cancel</d2l-button>
 			</d2l-dialog>
 		`;
 	}
@@ -96,6 +92,13 @@ class RoleSelector extends LitElement {
 
 	_handleDialog() {
 		this.shadowRoot.querySelector('#dialog').opened = true;
+		this._initialSelectedRoles();
+	}
+
+	_initialSelectedRoles() {
+		this._initialSelection = this._getSelectedItems().map(obj => {
+			return obj.itemId;
+		});
 	}
 
 	_handleSelectAllRoles(e) {
@@ -114,25 +117,19 @@ class RoleSelector extends LitElement {
 		}, 0);
 	}
 
+	_handleCancelBtn() {
+		this._getItems().forEach(item => {
+			if (this._initialSelection.includes(item.itemId)) {
+				item.selected = true;
+			} else {
+				item.selected = false;
+			}
+		});
+	}
+
 	_handleConfirmBtn() {
 		const selectedItems = this._getSelectedItems();
-
-		this._setFilterData(selectedItems);
-
-		this._selectedItemText = '';
-		if (selectedItems.length === this._itemCount) {
-			this._selectedItemText = 'All Roles';
-		} else {
-			for (let i = 0; i < selectedItems.length; i++) {
-				if (i > 0) {
-					this._selectedItemText = `${this._selectedItemText},  ${selectedItems[i].displayName}`;
-				} else {
-					this._selectedItemText = `${selectedItems[i].displayName}`;
-				}
-			}
-		}
-
-		this._handleEvent();
+		this._renderSelectedItemsText(selectedItems);
 	}
 
 	_handleEvent() {
@@ -145,9 +142,29 @@ class RoleSelector extends LitElement {
 		}));
 	}
 
+	_renderSelectedItemsText(selectedItems) {
+		this._selectedItemText = '';
+		if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
+			this._getItems().forEach(item => {
+				item.selected = true;
+			});
+			this._selectedItemCount = this._itemCount;
+			this._selectedItemText = 'All Roles';
+		} else {
+			this._selectedItemCount = selectedItems.length;
+			selectedItems.forEach((item, index) => {
+				item.selected = true;
+				this._selectedItemText = index > 0 ? `${this._selectedItemText},  ${item.displayName}` : `${item.displayName}`;
+			});
+		}
+
+		this._setFilterData(this._getSelectedItems());
+		this._handleEvent();
+	}
+
 	_setFilterData(roleData) {
 		this._filterData = roleData.map(obj => {
-			return { id: obj.itemId, displayName: obj.displayName };
+			return obj.itemId;
 		});
 	}
 }
