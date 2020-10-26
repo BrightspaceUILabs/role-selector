@@ -58,7 +58,9 @@ class RoleSelector extends LitElement {
 
 	async firstUpdated() {
 		this._itemCount = this._getItems().length;
-		this._renderSelectedItemsText(this._getSelectedItems());
+
+		const selectedItems = this._getSelectedItems().length === 0 ? this._getItems() : this._getSelectedItems();
+		this._renderSelectedItemsText(selectedItems);
 	}
 
 	render() {
