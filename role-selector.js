@@ -73,7 +73,6 @@ class RoleSelector extends LitElement {
 					title-text='Select Roles'
 					@d2l-dialog-close=${this._handleDialogClosed}
 					@d2l-labs-role-item-selection-change='${this._handleSelectionChange}'>
-
 					<d2l-input-checkbox
 									id='allRoles'
 									@change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>
