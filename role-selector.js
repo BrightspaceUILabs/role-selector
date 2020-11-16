@@ -25,6 +25,10 @@ class RoleSelector extends LitElement {
 			},
 			_selectedItemText: {
 				type: String
+			},
+			title: {
+				type: String,
+				attribute: 'title'
 			}
 		};
 	}
@@ -54,6 +58,7 @@ class RoleSelector extends LitElement {
 		this._selectedItemCount = 0;
 		this._selectedItemText = '';
 		this._filterData = [];
+		this.title = '';
 	}
 
 	async firstUpdated() {
@@ -66,7 +71,7 @@ class RoleSelector extends LitElement {
 	render() {
 		return html`
 			<label class="d2l-input-label">Roles Included: &nbsp; ${this._selectedItemText}</label>
-			<d2l-button @click='${this._handleDialog}'>Select Roles</d2l-button>
+			<d2l-button title='${this.title}' @click='${this._handleDialog}'>Select Roles</d2l-button>
 			<d2l-dialog
 					id='dialog'
 					width='300'
