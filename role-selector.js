@@ -54,6 +54,7 @@ class RoleSelector extends LitElement {
 
 	constructor() {
 		super();
+
 		this._itemCount = 0;
 		this._selectedItemCount = 0;
 		this._selectedItemText = '';
@@ -70,7 +71,10 @@ class RoleSelector extends LitElement {
 
 	render() {
 		return html`
-			<label class="d2l-input-label">Roles Included: &nbsp; ${this._selectedItemText}</label>
+			<div class='d2l-input-label'>
+				<d2l-input-label> Roles Included: </d2l-input-label>
+				<d2l-input-label> ${this._selectedItemText}</d2l-input-label>
+			</div>
 			<d2l-button title='${this.title}' @click='${this._handleDialog}'>Select Roles</d2l-button>
 			<d2l-dialog
 					id='dialog'
