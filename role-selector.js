@@ -75,7 +75,7 @@ class RoleSelector extends LitElement {
 				<d2l-input-label> Roles Included: </d2l-input-label>
 				<d2l-input-label> ${this._selectedItemText}</d2l-input-label>
 			</div>
-			<d2l-button title='${this.title}' @click='${this._handleDialog}'>Select Roles</d2l-button>
+			<d2l-button id='dialog-btn' title='${this.title}' @click='${this._handleDialog}'>Select Roles</d2l-button>
 			<d2l-dialog
 					id='dialog'
 					width='300'
@@ -163,8 +163,13 @@ class RoleSelector extends LitElement {
 
 	_renderSelectedItemsText(selectedItems) {
 		this._selectedItemText = '';
-		if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
-			this._getItems().forEach(item => {
+		const roleItems = this._getItems();
+
+		if (roleItems.length === 0) {
+			this.shadowRoot.querySelector('#dialog-btn').disabled = true;
+			this._selectedItemText = 'You donot have permission to view roles for this org unit';
+		} else if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
+			roleItems.forEach(item => {
 				item.selected = true;
 			});
 
