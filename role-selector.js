@@ -167,7 +167,7 @@ class RoleSelector extends LitElement {
 
 		if (roleItems.length === 0) {
 			this.shadowRoot.querySelector('#dialog-btn').disabled = true;
-			this._selectedItemText = 'You donot have permission to view roles for this org unit';
+			this._selectedItemText = 'You do not have permission to view roles for this org unit';
 		} else if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
 			roleItems.forEach(item => {
 				item.selected = true;
