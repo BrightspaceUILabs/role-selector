@@ -14,6 +14,9 @@ class RoleSelector extends LitElement {
 			_filterData: {
 				type: Array
 			},
+			_handleDialogButton: {
+				type: Boolean
+			},
 			_initialSelection: {
 				type: Array
 			},
@@ -60,6 +63,7 @@ class RoleSelector extends LitElement {
 		this._selectedItemCount = 0;
 		this._selectedItemText = '';
 		this._filterData = [];
+		this._handleDialogButton = false;
 		this.title = '';
 	}
 
@@ -76,7 +80,12 @@ class RoleSelector extends LitElement {
 				<d2l-input-label> Roles Included: </d2l-input-label>
 				<d2l-input-label> ${this._selectedItemText}</d2l-input-label>
 			</div>
-			<d2l-button id='dialog-btn' title='${this.title}' @click='${this._handleDialog}'>Select Roles</d2l-button>
+			<d2l-button
+				title='${this.title}'
+				?disabled=${this._handleDialogButton}
+				@click='${this._handleDialog}'>
+				Select Roles
+			</d2l-button>
 			<d2l-dialog
 					id='dialog'
 					width='300'
@@ -168,10 +177,7 @@ class RoleSelector extends LitElement {
 		const roleItems = this._getItems();
 
 		if (roleItems.length === 0) {
-			const dialogBtn = this.shadowRoot.querySelector('#dialog-btn');
-			dialogBtn.disabled = true;
-			dialogBtn.setAttribute('aria-disabled', 'true');
-
+			this._handleDialogButton = true;
 			this._selectedItemText = 'You do not have permission to view roles for this org unit';
 		} else if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
 			roleItems.forEach(item => {
