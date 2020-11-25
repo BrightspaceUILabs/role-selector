@@ -15,6 +15,7 @@ class RoleSelector extends LitElement {
 				type: Array
 			},
 			_handleDialogButton: {
+				attribute: false,
 				type: Boolean
 			},
 			_initialSelection: {

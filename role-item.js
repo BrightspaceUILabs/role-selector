@@ -1,6 +1,5 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox.js';
-import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 
 class RoleItem extends LitElement {
 
@@ -33,7 +32,6 @@ class RoleItem extends LitElement {
 		`;
 		return [
 			roleItemStyles,
-			inputLabelStyles,
 			checkboxStyles
 		];
 	}
