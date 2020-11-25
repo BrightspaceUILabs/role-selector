@@ -1,5 +1,6 @@
-import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox.js';
+import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 
 class RoleItem extends LitElement {
 
@@ -22,7 +23,7 @@ class RoleItem extends LitElement {
 	}
 
 	static get styles() {
-		return css`
+		const roleItemStyles = css`
 			:host {
 				display: block;
 			}
@@ -30,16 +31,23 @@ class RoleItem extends LitElement {
 				display: none;
 			}
 		`;
+		return [
+			roleItemStyles,
+			inputLabelStyles,
+			checkboxStyles
+		];
 	}
 
 	render() {
 		return html`
-			<d2l-input-checkbox
+			<input
+				id="checkbox-label"
+				type="checkbox"
+				class="d2l-input-checkbox"
 				.checked="${this.selected}"
 				.value=${this.itemId}	
 				@change=${this._onCheckboxChange}>
-			${this.displayName}
-			</d2l-input-checkbox>
+			<label for="checkbox-label">${this.displayName}</label>
 		`;
 	}
 

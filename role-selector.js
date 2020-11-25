@@ -1,8 +1,8 @@
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/button/button.js';
-import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
 
 const DONE_ACTION = 'done';
@@ -48,7 +48,8 @@ class RoleSelector extends LitElement {
 		`;
 		return [
 			roleSelectorStyles,
-			inputLabelStyles
+			inputLabelStyles,
+			checkboxStyles
 		];
 	}
 
@@ -82,11 +83,12 @@ class RoleSelector extends LitElement {
 					title-text='Select Roles'
 					@d2l-dialog-close=${this._handleDialogClosed}
 					@d2l-labs-role-item-selection-change='${this._handleSelectionChange}'>
-					<d2l-input-checkbox
-									id='allRoles'
-									@change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>
-									All Roles
-					</d2l-input-checkbox>
+					<input
+						type='checkbox'
+						class='d2l-input-checkbox'
+						id='allRoles'
+						@change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>
+					<label for="allRoles">All Roles</label>
 					<hr>
 					<slot @slotchange="${this._handleSlotChange}"></slot>
 					<d2l-button id='confirm' slot='footer' primary data-dialog-action='${DONE_ACTION}' ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
