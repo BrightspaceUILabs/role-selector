@@ -166,7 +166,9 @@ class RoleSelector extends LitElement {
 		const roleItems = this._getItems();
 
 		if (roleItems.length === 0) {
-			this.shadowRoot.querySelector('#dialog-btn').disabled = true;
+			const dialogBtn = this.shadowRoot.querySelector('#dialog-btn');
+			dialogBtn.disabled = true;
+			dialogBtn.setAttribute('aria-disabled', 'true');
 			this._selectedItemText = 'You do not have permission to view roles for this org unit';
 		} else if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
 			roleItems.forEach(item => {
