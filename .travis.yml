@@ -2,40 +2,17 @@ language: node_js
 node_js: node
 jobs:
   include:
-  - stage: Unit tests
-    script:
-    - npm run lint
-    - |
-      if [ $TRAVIS_PULL_REQUEST != false ] && [ $TRAVIS_SECURE_ENV_VARS == true ]; then
-          echo "Pull request with secure environment variables, running Sauce tests...";
-          npm run test:sauce || travis_terminate 1;
-      else
-          echo "Not a pull request and/or no secure environment variables, running headless tests...";
-          npm run test:headless || travis_terminate 1;
-      fi
-    env:
-    - SAUCE_USERNAME: Desire2Learn
-    # SAUCE_ACCESS_KEY
-    - secure: nWqMxjdKuArYhIrCFaTtfHTrzWAQfHqXSauTsl3SgAdCg7E10Kz7Cy4BhccMb/cKRUwJvIWBWAWjkczHgGtV+njbpSJjpsW8yEXQAFwpWdYoJrAqSgCcZjEbLCIsyCm9F8TQEKYYOgj80TdSpFIS19IaXtFWPiiZvdXc863D1kGrACLT44K93c8gL2EfCQrdTLYnyYD+wNqc7M/LI06tm7wAhMhYIUS9AYymbfXDXW1TEmfnf/BE5FRxxown9rIP0Ohbt9lti9CH3ACiQ6hg0IV8wX9fehzlLuU9b3ug0UG+fDXoVWHbpaEdWwY2s8YUmoZpo7cXIlOSTmuc4vF4hbmOa1R2zZKOaGuYWKwEapn50rXCm3zIpehAxInL0+xtPpi96/PYVoedCuN8UckGplvBQfBsUW0ocFMUjjeNcc+s8XqViOlWT6XtaejOBWxykmaIN60bdcxeK+M4UbhYMerV9Cbm37n2oElxacbLAYpsjDL+x+BxMO1C5GJ/EU1F3ITPnpWYE1+OjOK4dfeOvixBNBQOrzYJaR1GdYwrQoeiq6AffYOS3l6eAzt6tQrOztcXUbNyaDC54QA9+2phmR/+ulRg5SQH45xpDONJEEkHkiMmsODtPf80k7GoPyyznxDXDF7asF/r/C/TsviYCBHc+cbeKZ1jI5tOYu5a3uY=
   - stage: Visual-difference-tests
     script:
-    - if [ $TRAVIS_SECURE_ENV_VARS == true ]; then echo "Running visual difference
-      tests..."; npm run test:diff || travis_terminate 1; fi
+    - if [ $TRAVIS_SECURE_ENV_VARS == true ]; then
+        echo "Running visual difference tests...";
+        npm run test:diff || travis_terminate 1;
+      fi
     env:
     # VISUAL_DIFF_S3_ID
     - secure: Bw843sRP3hwZwjPJbAUL9nI38AtefUWy9fYMlzBaWrXskEsjI2hJF6DLyW/hFTLgwfGNMUMsjl8ayhclDXkbR4yZbMj0tk6pE+pW3SLBEwpiKmy6J7kqEklxLh+wVISFJCZyTAddi7Ui90SqBVRfdmxdGQZpvzH3ThiaJyHDMYBozlMIFSReJ459KRslGG2uPIGBdP9r8g+uUDIfln/6E1pqtDbyksmDTuz6VBhE6/wIrxyMqPENbp4DGhVJbhOc+7HPUdETDrRLVLgPuazA720zFOqKRG4ViH7RvKZEhkk6snWCFY99ZvJ4aBLEgYh9wHvluvl4Qeyueo45Dn/aRr3Q3p8QIkCM+aHCKu69xXqQXuVEZRmevDuHzcOx78Jn75+paRd6edZgD9rMIaM8ulMeB9axq4rPq/QmZFza9JGzqaeGAXATQi45ecyMh11EbNFdXuhLaYYrOdI+pMh/7ClMnwKI9LBmKmNgAfe1uOT3j5nR0FPtmoMpRVU4uBEfc9AveYMdnmCZPKxPU4dhbHG5BHkQprbWOVzt7w4MUy73Wo/eRhWyo5qfD1yIQpRhLRxqlV/uD0vEeMOwl83d/zUKmXHTaRGIjXj08O4QukHWcXU+h9OidSQB9h1W8WGilnJh5k6E1kA9RbBBVRjlmF1362a059wLGKRm5v90kt0=
     # VISUAL_DIFF_S3_SECRET
     - secure: M6467IlR2hsidmCZofDijomQlRjetcjzzEzuwYIsOzbH7Ow7rg5zte+rRaJ0h0oqL7P7MHV1ZPzG38fw1mOu/NJCjiLrFMUbP1LQe0LWaAMwsmOzkE4mBJqyFBYfyj1iQjVSJHs1X3ZYvldd3q3u7kYusGp97PsBV3zC6aaaI2LfuV/bPmOF0VH4vV51dVbfXk3CkheVzFZfMV5gfbLAUrJucO+iIGZlkVd+PkWrijNCEH8/x8r0cGXAL2zQqy9dk/1x6NX0FzoPL2fu4ZI4pLee9G3WeSyI/5DM61uc9grhn6WhOWo8+mU2WYv9J+Aw/nCDPtQvv2Ugnrr9vfkuZgelHEFLplipCVr9298EMpTYEt5iBo12N5SdfEHoZQZxrY+mlZC4sxYE29mxFR3C6srROuAT1KkGg9x/RhOGSU2z5rVotU0HIHPGYFVMPckN6vEVOyqg1RHA+V7lz9/asqzw2bE+J+6n/Ztb5H4Sg3Dt4Xigl3WeyTkIsxB5MZUEXYtGkKuINA6LEhxJfygd8VqxG+bF0eX2tfCeq0jO2XtNT83r9/JjM0M9sUYElr4dl6jmL8oc3XoTK48pLOkAAvWbXwnFai2Nkhm69lTOFhc/WfUXT6WfUN/qC+pPSrGLByFMTIIwhtgVEfzoYWKrZDVXzGN/SnY60TRzPtOppbk=
-  - stage: release
-    script: skip
-    env:
-    # NPM_TOKEN a2f8......a80d
-    - secure: AYp5mvxdVRYKnDzOWslrNq9LACBTyG+QGIHSMrp3W2TbBrbCKzh8nu2QDfz5U1Mxn/gSbINu3EP3uJdcMvIL2eHONK+uEw16mkQex7w4LG1s+4qJPlL3uxMDK+TESr9XKEo7dN9ssheK+44NtoOflV5bENVa6o2lK/fJ+j8ORdGJr8sWsD8wC6k11ac9+4x2B1FEOV3LGyPVmptXHX1j0SIjRLoe3qid6zke37kSN/q73gyxLI5YdBkqNxZ2eCoL8RCHKmXW2QxUYld6NmXtCp5GDKondgStxzwgqAr97nDHAxwbct1KVVAaKjTHAtLiQb5Am2ZGDkdTGNnqfwQ5+ee8P341H90MHOZLrs2t+9BdYHNHVggYjwC0U5MBFyigzKmAOA3sxPVZ2P43t8DZNt012QHntpUwzIGhKeoxKOBpPKUtv4kuJfvlyGRJVNLEHYR83Qub8GYh02NFZDCQKjn7w2TIsfq+k/nwjJPdb4oJAIBK1Xu3M8NEKqQ6QTfFhkovCaUNqnLZ+1QvjgZIsLF+0ji3w0CPyGuqJEos0k3T1dQ+02aaVYS+EciwlgnXDiRpd3b7Q5Ip3GwjaN8jclZlTpYTEmhWFWVRj2ufCiZYxFwv3OSpOLN/ojz3uJ/n1pl5RA6OdUyeqx4x7jAYoXbX9hJL9t1wElmT+zqaXhQ=
-    deploy:
-      provider: script
-      skip_cleanup: true
-      script:
-      - npx semantic-release
 env:
   global:
   # GITHUB_TOKEN
