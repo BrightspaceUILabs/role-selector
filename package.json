@@ -16,10 +16,7 @@
     "lint:lit": "lit-analyzer role-selector.js demo test",
     "lint:style": "stylelint \"**/*.js\"",
     "start": "es-dev-server --app-index demo/index.html --node-resolve --dedupe --open --watch",
-    "test": "npm run lint && npm run test:headless && npm run test:diff",
-    "test:diff": "mocha ./**/*.visual-diff.js -t 40000",
-    "test:diff:golden": "mocha ./**/*.visual-diff.js -t 40000 --golden",
-    "test:diff:golden:commit": "commit-goldens",
+    "test": "npm run lint && npm run test:headless",
     "test:headless": "karma start",
     "test:headless:watch": "karma start --auto-watch=true --single-run=false",
     "test:sauce": "karma start karma.sauce.conf.js"
@@ -28,7 +25,6 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@brightspace-ui/stylelint-config": "^0.0.3",
-    "@brightspace-ui/visual-diff": "^1.5.1",
     "@open-wc/testing": "^2",
     "@open-wc/testing-karma": "^3",
     "@webcomponents/webcomponentsjs": "^2",
@@ -43,7 +39,6 @@
     "karma-sauce-launcher": "^2",
     "lit-analyzer": "^1",
     "mocha": "^8.2.1",
-    "puppeteer": "^5.5.0",
     "sinon": "^9.0.3",
     "stylelint": "^13"
   },
