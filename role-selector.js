@@ -4,10 +4,11 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
+import { LocalizeMixin } from './mixins/localize-mixin';
 
 const DONE_ACTION = 'done';
 
-class RoleSelector extends LitElement {
+class RoleSelector extends LocalizeMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -78,19 +79,19 @@ class RoleSelector extends LitElement {
 	render() {
 		return html`
 			<div class='d2l-input-label'>
-				<d2l-input-label> Roles Included: </d2l-input-label>
+				<d2l-input-label>${this.localize('inputLabel')}</d2l-input-label>
 				<d2l-input-label> ${this._selectedItemText}</d2l-input-label>
 			</div>
 			<d2l-button
 				title='${this.title}'
 				?disabled=${this._handleDialogButton}
 				@click='${this._handleDialog}'>
-				Select Roles
+				${this.localize('selectRoles')}
 			</d2l-button>
 			<d2l-dialog
 					id='dialog'
 					width='300'
-					title-text='Select Roles'
+					title-text=${this.localize('selectRoles')}
 					@d2l-dialog-close=${this._handleDialogClosed}
 					@d2l-labs-role-item-selection-change='${this._handleSelectionChange}'>
 					<input
@@ -98,11 +99,11 @@ class RoleSelector extends LitElement {
 						class='d2l-input-checkbox'
 						id='allRoles'
 						@change=${this._handleSelectAllRoles} ?checked=${this._selectedItemCount === this._itemCount}>
-					<label for="allRoles">All Roles</label>
+					<label for="allRoles">${this.localize('allRoles')}</label>
 					<hr>
 					<slot @slotchange="${this._handleSlotChange}"></slot>
-					<d2l-button id='confirm' slot='footer' primary data-dialog-action='${DONE_ACTION}' ?disabled=${this._selectedItemCount === 0}>Select</d2l-button>
-					<d2l-button slot='footer' data-dialog-action>Cancel</d2l-button>
+					<d2l-button id='confirm' slot='footer' primary data-dialog-action='${DONE_ACTION}' ?disabled=${this._selectedItemCount === 0}>${this.localize('selectButton')}</d2l-button>
+					<d2l-button slot='footer' data-dialog-action>${this.localize('cancelButton')}</d2l-button>
 			</d2l-dialog>
 		`;
 	}
@@ -119,36 +120,9 @@ class RoleSelector extends LitElement {
 		});
 	}
 
-	_handleSlotChange() {
-		this._itemCount = this._getItems().length;
-		this._selectedItemCount = this._getSelectedItems().length;
-	}
-
 	_handleDialog() {
 		this.shadowRoot.querySelector('#dialog').opened = true;
 		this._initialSelectedRoles();
-	}
-
-	_initialSelectedRoles() {
-		this._initialSelection = this._getSelectedItems().map(obj => {
-			return obj.itemId;
-		});
-	}
-
-	_handleSelectAllRoles(e) {
-		const items = this._getItems();
-		items.forEach(item => {
-			item.selected = e.target.checked;
-		});
-		this._selectedItemCount = (e.target.checked ? this._itemCount : 0);
-	}
-
-	_handleSelectionChange() {
-		const items = this._getItems();
-		this._selectedItemCount = items.reduce((acc, item) => {
-			if (item.selected) return ++acc;
-			else return acc;
-		}, 0);
 	}
 
 	_handleDialogClosed(event) {
@@ -173,20 +147,47 @@ class RoleSelector extends LitElement {
 		}));
 	}
 
+	_handleSelectAllRoles(e) {
+		const items = this._getItems();
+		items.forEach(item => {
+			item.selected = e.target.checked;
+		});
+		this._selectedItemCount = (e.target.checked ? this._itemCount : 0);
+	}
+
+	_handleSelectionChange() {
+		const items = this._getItems();
+		this._selectedItemCount = items.reduce((acc, item) => {
+			if (item.selected) return ++acc;
+			else return acc;
+		}, 0);
+	}
+
+	_handleSlotChange() {
+		this._itemCount = this._getItems().length;
+		this._selectedItemCount = this._getSelectedItems().length;
+	}
+
+	_initialSelectedRoles() {
+		this._initialSelection = this._getSelectedItems().map(obj => {
+			return obj.itemId;
+		});
+	}
+
 	_renderSelectedItemsText(selectedItems) {
 		this._selectedItemText = '';
 		const roleItems = this._getItems();
 
 		if (roleItems.length === 0) {
 			this._handleDialogButton = true;
-			this._selectedItemText = 'You do not have permission to view roles for this org unit';
+			this._selectedItemText = `${this.localize('errorMessage')}`;
 		} else if (selectedItems.length === 0 || selectedItems.length === this._itemCount) {
 			roleItems.forEach(item => {
 				item.selected = true;
 			});
 
 			this._selectedItemCount = this._itemCount;
-			this._selectedItemText = 'All Roles';
+			this._selectedItemText = `${this.localize('allRoles')}`;
 		} else {
 			this._selectedItemCount = selectedItems.length;
 

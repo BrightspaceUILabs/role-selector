@@ -6,17 +6,17 @@ const customLaunchers = {
 	chrome: {
 		base: 'SauceLabs',
 		browserName: 'chrome',
-		platform: 'OS X 10.15',
+		platform: 'macOS 11.00',
 	},
 	firefox: {
 		base: 'SauceLabs',
 		browserName: 'firefox',
-		platform: 'OS X 10.15'
+		platform: 'macOS 11.00'
 	},
 	safari: {
 		base: 'SauceLabs',
 		browserName: 'safari',
-		platform: 'OS X 10.15'
+		platform: 'macOS 11.00'
 	},
 	edge: {
 		base: 'SauceLabs',
@@ -26,15 +26,18 @@ const customLaunchers = {
 };
 
 module.exports = config => {
+	const defaultConfig = createDefaultConfig(config);
+	defaultConfig.browsers = []; // remove ChromeHeadless
 	config.set(
-		merge(createDefaultConfig(config), {
+		merge(defaultConfig, {
 			files: [
 				// runs all files ending with .test in the test folder,
 				// can be overwritten by passing a --grep flag. examples:
 				//
 				// npm run test -- --grep test/foo/bar.test.js
 				// npm run test -- --grep test/bar/*
-				{ pattern: config.grep ? config.grep : 'test/**/*.test.js', type: 'module' },
+				'node_modules/@brightspace-ui/core/tools/resize-observer-test-error-handler.js',
+				{ pattern: config.grep ? config.grep : 'test/*.test.js', type: 'module' },
 			],
 			// see the karma-esm docs for all options
 			esm: {
@@ -46,7 +49,7 @@ module.exports = config => {
 			},
 			customLaunchers: customLaunchers,
 			browsers: Object.keys(customLaunchers),
-			reporters: ['dots', 'saucelabs'],
+			reporters: ['saucelabs'],
 			singleRun: true
 		}),
 	);
