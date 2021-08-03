@@ -10,7 +10,8 @@
     "role-selector.js",
     "role-item.js",
     "role-selector.serge.json",
-    "/lang"
+    "/lang",
+    "/mixins"
   ],
   "scripts": {
     "lint": "npm run lint:eslint && npm run lint:lit && npm run lint:style",
