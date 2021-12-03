@@ -35,7 +35,6 @@ Include the webcomponents.js polyfill loader (for browsers who don't natively su
 
 ```html
 <head>
-	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 	<script type="module">
 		import '/node_modules/@brightspace-ui-labs/role-selector/role-selector.js';
 		import '/node_modules/@brightspace-ui-labs/role-selector/role-item.js';
@@ -113,20 +112,25 @@ npm run test:headless:watch
 
 This repo uses the [@brightspace-ui/visual-diff utility](https://github.com/BrightspaceUI/visual-diff/) to compare current snapshots against a set of golden snapshots stored in source control.
 
-The golden snapshots in source control must be updated by Github Actions.  If your PR's code changes result in visual differences, a PR with the new goldens will be automatically opened for you against your branch.
+The golden snapshots in source control must be updated by the [visual-diff GitHub Action](https://github.com/BrightspaceUI/actions/tree/main/visual-diff).  If a pull request results in visual differences, a draft pull request with the new goldens will automatically be opened against its branch.
 
-If you'd like to run the tests locally to help troubleshoot or develop new tests, you can use these commands:
+To run the tests locally to help troubleshoot or develop new tests, first install these dependencies:
 
 ```shell
-# Install dependencies locally
-npm i mocha -g
-npm i @brightspace-ui/visual-diff puppeteer --no-save
+npm install @brightspace-ui/visual-diff@X mocha@Y puppeteer@Z  --no-save
+```
+
+Replace `X`, `Y` and `Z` with [the current versions](https://github.com/BrightspaceUI/actions/tree/main/visual-diff#current-dependency-versions) the action is using.
+
+Then run the tests:
+
+```shell
 # run visual-diff tests
-mocha './test/**/*.visual-diff.js' -t 10000
+npx mocha './test/**/*.visual-diff.js' -t 10000
 # subset of visual-diff tests:
-mocha './test/**/*.visual-diff.js' -t 10000 -g some-pattern
+npx mocha './test/**/*.visual-diff.js' -t 10000 -g some-pattern
 # update visual-diff goldens
-mocha './test/**/*.visual-diff.js' -t 10000 --golden
+npx mocha './test/**/*.visual-diff.js' -t 10000 --golden
 ```
 
 ## Versioning & Releasing
