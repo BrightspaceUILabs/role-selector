@@ -4,7 +4,7 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles';
-import { LocalizeMixin } from './mixins/localize-mixin';
+import { LocalizeMixin } from './mixins/localize-mixin.js';
 
 const DONE_ACTION = 'done';
 

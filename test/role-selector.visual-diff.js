@@ -1,10 +1,9 @@
-const puppeteer = require('puppeteer');
-const VisualDiff = require('@brightspace-ui/visual-diff');
-const { oneEvent } = require('@brightspace-ui/visual-diff/helpers');
+import { oneEvent, VisualDiff } from '@brightspace-ui/visual-diff';
+import puppeteer from 'puppeteer';
 
 describe('d2l-labs-role-selector', () => {
 
-	const visualDiff = new VisualDiff('role-selector', __dirname);
+	const visualDiff = new VisualDiff('role-selector', import.meta.url);
 
 	let browser, page;
 
