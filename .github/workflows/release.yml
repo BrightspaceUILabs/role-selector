@@ -21,9 +21,9 @@ jobs:
         with:
           node-version: '14'
           cache: 'npm'
-      - name: Semantic Release
-        uses: BrightspaceUI/actions/semantic-release@main
+      - name: Incremental Release
+        id: incremental-release
+        uses: BrightspaceUI/actions/incremental-release@master
         with:
+          DEFAULT_INCREMENT: patch
           GITHUB_TOKEN: ${{ secrets.D2L_GITHUB_TOKEN }}
-          NPM: true
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
