@@ -23,7 +23,7 @@ jobs:
           cache: 'npm'
       - name: Incremental Release
         id: incremental-release
-        uses: BrightspaceUI/actions/incremental-release@master
+        uses: BrightspaceUI/actions/incremental-release@main
         with:
           DEFAULT_INCREMENT: patch
           GITHUB_TOKEN: ${{ secrets.D2L_GITHUB_TOKEN }}
