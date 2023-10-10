@@ -15,7 +15,7 @@ jobs:
         run: |
           npm install
           npm install @web/test-runner-playwright@0.9
-          npx playwright install-deps
+          npx playwright install --with-deps
       - name: Lint (JavaScript)
         run: npm run lint:eslint
       - name: Lint (CSS)
