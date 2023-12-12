@@ -43,6 +43,6 @@
   },
   "dependencies": {
     "@brightspace-ui/core": "^2",
-    "lit-element": "^3"
+    "lit": "^2"
   }
 }

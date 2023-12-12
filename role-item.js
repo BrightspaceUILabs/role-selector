@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html, LitElement } from 'lit';
 import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox.js';
 
 class RoleItem extends LitElement {
