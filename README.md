@@ -133,31 +133,8 @@ npx mocha './test/**/*.visual-diff.js' -t 10000 -g some-pattern
 npx mocha './test/**/*.visual-diff.js' -t 10000 --golden
 ```
 
-## Versioning & Releasing
+### Versioning and Releasing
 
-The [incremental-release GitHub Action](https://github.com/BrightspaceUI/actions/tree/main/incremental-release) is called from the `release.yml` GitHub Action workflow to handle version changes and releasing.
+This repo is configured to use `semantic-release`. Commits prefixed with `fix:` and `feat:` will trigger patch and minor releases when merged to `main`.
 
-### Triggering a Release
-
-Releases occur based on the most recent commit message:
-* Commits which contain `[increment patch]` will trigger a `patch` release. Example: `validate input before using [increment patch]`
-* Commits which contain `[increment minor]` will trigger a `minor` release. Example: `add toggle() method [increment minor]`
-* Commits which contain `[increment major]` will trigger a `major` release. Example: `breaking all the things [increment major]`
-
-**Note:** When merging a pull request, this will be the merge commit message.
-
-### Default Increment
-
-Normally, if the most recent commit does not contain `[increment major|minor|patch]`, no release will occur. However, by setting the `DEFAULT_INCREMENT` option you can control which type of release will occur. This repo has the `DEFAULT_INCREMENT` set to be a `patch` release.
-
-In this example, a minor release will occur if no increment value is found in the most recent commit:
-
-```yml
-uses: BrightspaceUI/actions/incremental-release@main
-with:
-  DEFAULT_INCREMENT: minor
-```
-
-### Skipping Releases
-
-When a default increment is specified, sometimes you want to bypass it and skip a release. To do this, include `[skip version]` in the commit message.
+To learn how to create major releases and release from maintenance branches, refer to the [semantic-release GitHub Action](https://github.com/BrightspaceUI/actions/tree/main/semantic-release) documentation.
