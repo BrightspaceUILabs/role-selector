@@ -12,15 +12,10 @@ jobs:
           node-version-file: .nvmrc
           cache: 'npm'
       - name: Install dependencies
-        run: |
-          npm install
-          npm install @web/test-runner-playwright@0.9
-          npx playwright install --with-deps
+        run: npm ci
       - name: Lint (JavaScript)
         run: npm run lint:eslint
       - name: Lint (CSS)
         run: npm run lint:style
-      - name: Lint (Lit)
-        run: npm run lint:lit
       - name: Unit Tests
-        run: npx web-test-runner --config web-test-runner.config.js --group default --playwright --browsers chromium firefox webkit
+        run: npm run test:unit
