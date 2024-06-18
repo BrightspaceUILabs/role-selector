@@ -90,7 +90,7 @@ class RoleSelector extends LocalizeMixin(LitElement) {
 			</d2l-button>
 			<d2l-dialog
 					id='dialog'
-					width='300'
+					width='325'
 					title-text=${this.localize('selectRoles')}
 					@d2l-dialog-close=${this._handleDialogClosed}
 					@d2l-labs-role-item-selection-change='${this._handleSelectionChange}'>
