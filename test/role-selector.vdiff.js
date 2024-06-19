@@ -23,7 +23,7 @@ describe('d2l-labs-role-selector', () => {
 
 	it('role-item-content', async() => {
 		elem._handleDialog();
-		await oneEvent(elem, 'd2l-dialog-open');
+		await dialogOpenEvent;
 		await expect(document).to.be.golden();
 	});
 
