@@ -1,6 +1,6 @@
-import { clickElem, expect, fixture, html, oneEvent } from '@brightspace-ui/testing';
 import '../role-selector.js';
 import '../role-item.js';
+import { clickElem, expect, fixture, html, oneEvent } from '@brightspace-ui/testing';
 
 describe('d2l-labs-role-selector', () => {
 
