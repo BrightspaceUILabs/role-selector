@@ -79,8 +79,7 @@ class RoleSelector extends LocalizeMixin(LitElement) {
 	render() {
 		return html`
 			<div class='d2l-input-label'>
-				<d2l-input-label>${this.localize('inputLabel')}</d2l-input-label>
-				<d2l-input-label> ${this._selectedItemText}</d2l-input-label>
+				${this.localize('inputLabel')} ${this._selectedItemText}
 			</div>
 			<d2l-button
 				title='${this.title}'
@@ -90,7 +89,7 @@ class RoleSelector extends LocalizeMixin(LitElement) {
 			</d2l-button>
 			<d2l-dialog
 					id='dialog'
-					width='300'
+					width='325'
 					title-text=${this.localize('selectRoles')}
 					@d2l-dialog-close=${this._handleDialogClosed}
 					@d2l-labs-role-item-selection-change='${this._handleSelectionChange}'>
