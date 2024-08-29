@@ -1,7 +1,7 @@
 /* eslint quotes: 0 */
 
 export default {
-	"inputLabel": "Roller inkluderet:",
+	"inputLabel": "Roller inkluderet: ",
 	"selectRoles": "Vælg roller",
 	"allRoles": "Alle roller",
 	"selectButton": "Vælg",
